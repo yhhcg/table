@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import demo from 'table';
+import Table from 'table';
 
 /**
  * Export a form call api with post method
@@ -9,10 +9,12 @@ import demo from 'table';
 class Demo extends React.Component {
   /**
    * Render Something.
-   * @return {Node}
+   * @return {Element}
    */
   render() {
-    return <div>{demo}</div>;
+    return (
+      <Table />
+    );
   }
 }
 
