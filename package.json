@@ -21,8 +21,8 @@
     "preversion": "yarn test",
     "version": "yarn build && npm publish build"
   },
-  "repository": "git@github.com:marcosun/table.git",
-  "author": "marcosun <marcoinbristol@gmail.com>",
+  "repository": "git@github.com:yhhcg/table.git",
+  "author": "yhhcg",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",

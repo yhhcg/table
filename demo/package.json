@@ -12,7 +12,7 @@
     "start": "webpack-dev-server --config ./config/webpack.local.js --open"
   },
   "keywords": [],
-  "author": "Marco",
+  "author": "yhhcg",
   "license": "MIT",
   "jest": {
     "roots": ["<rootDir>/src/"]
