@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class Table extends Component {
+class Table extends React.Component {
   render() {
     return <table />;
   }
