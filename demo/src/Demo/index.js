@@ -7,13 +7,59 @@ import Table from 'table';
  */
 @hot(module)
 class Demo extends React.Component {
+  columns = [
+    {
+      title: 'project',
+      key: 'project',
+      fixed: 'left',
+      width: '80px',
+    },
+    ...Array.from({ length: 5 }, (item, index) => ({
+      title: `column${index}`,
+      key: `column${index}`,
+      width: '10%',
+    })),
+    {
+      title: 'pages',
+      key: 'pages',
+      width: '10%',
+    }, {
+      title: 'package',
+      key: 'package',
+      width: '10%',
+    }, {
+      title: 'duration',
+      key: 'duration',
+    },
+  ];
+
+  data = Array.from({ length: 20 }, (item, index) => {
+    return {
+      key: index,
+      project: 'schedule',
+      pages: '10',
+      package: 'Ant design',
+      duration: '45',
+      ...Array.from({ length: 5 }, (subItem, subIndex) => (subIndex))
+        .reduce((accumulator, value) => {
+          return {
+            ...accumulator,
+            [`column${value}`]: `no.${value}`,
+          };
+        }, {}),
+    };
+  });
+
   /**
    * Render Something.
    * @return {Element}
    */
   render() {
     return (
-      <Table />
+      <Table
+        columns={this.columns}
+        data={this.data}
+      />
     );
   }
 }
