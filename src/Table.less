@@ -1,15 +1,35 @@
 .table {
   position: relative;
+  width: 100%;
 
   * {
     box-sizing: border-box;
   }
 
-  &-fixed-header {
+  &-content {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  &-fixed-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-fixed-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-scrollable-body {
+    height: 100%;
   }
 
   &-header {

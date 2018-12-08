@@ -10,23 +10,77 @@ class Table extends React.PureComponent {
     const {
       columns,
       data,
-      isFixedHeader,
+      isFixedHeaderAndScrollableBody,
     } = this.props;
 
-    if (isFixedHeader) {
+    const fixedLeftColumns = columns.filter((column) => column.fixed === 'left');
+    const fixedRightColumns = columns.filter((column) => column.fixed === 'right');
+
+    if (isFixedHeaderAndScrollableBody
+      || fixedLeftColumns.length !== 0
+      || fixedRightColumns.length !== 0
+    ) {
+      const rootClassName = classNames('table', {
+        'table-scrollable-body': isFixedHeaderAndScrollableBody,
+      });
+      const contentClassName = classNames('table-content', {
+        'table-scrollable-body': isFixedHeaderAndScrollableBody,
+      });
+      const fixedLeftClassName = classNames('table-fixed-left', {
+        'table-scrollable-body': isFixedHeaderAndScrollableBody,
+      });
+      const fixedRightClassName = classNames('table-fixed-right', {
+        'table-scrollable-body': isFixedHeaderAndScrollableBody,
+      });
+      const headerClassName = classNames({
+        'table-header': isFixedHeaderAndScrollableBody,
+      });
+      const bodyClassName = classNames({
+        'table-body': isFixedHeaderAndScrollableBody,
+      });
       return (
-        <div className={classNames('table', 'table-fixed-header')}>
-          <div className="table-header">
-            <table className="table-header-table">
-              <TableColgroup columns={columns} />
-              <TableHeader columns={columns} />
-            </table>
+        <div className={rootClassName}>
+          <div className={contentClassName}>
+            <div className={headerClassName}>
+              <table className="table-header-table">
+                <TableColgroup columns={columns} />
+                <TableHeader columns={columns} />
+              </table>
+            </div>
+            <div className={bodyClassName}>
+              <table className="table-body-table">
+                <TableColgroup columns={columns} />
+                <TableBody columns={columns} data={data} />
+              </table>
+            </div>
           </div>
-          <div className="table-body">
-            <table className="table-body-table">
-              <TableColgroup columns={columns} />
-              <TableBody columns={columns} data={data} />
-            </table>
+          <div className={fixedLeftClassName}>
+            <div className={headerClassName}>
+              <table>
+                <TableColgroup columns={fixedLeftColumns} />
+                <TableHeader columns={fixedLeftColumns} />
+              </table>
+            </div>
+            <div className={bodyClassName}>
+              <table>
+                <TableColgroup columns={fixedLeftColumns} />
+                <TableBody columns={fixedLeftColumns} data={data} />
+              </table>
+            </div>
+          </div>
+          <div className={fixedRightClassName}>
+            <div className={headerClassName}>
+              <table>
+                <TableColgroup columns={fixedRightColumns} />
+                <TableHeader columns={fixedRightColumns} />
+              </table>
+            </div>
+            <div className={bodyClassName}>
+              <table>
+                <TableColgroup columns={fixedRightColumns} />
+                <TableBody columns={fixedRightColumns} data={data} />
+              </table>
+            </div>
           </div>
         </div>
       );
@@ -51,11 +105,11 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
   })).isRequired,
-  isFixedHeader: PropTypes.bool,
+  isFixedHeaderAndScrollableBody: PropTypes.bool,
 };
 
 Table.defaultProps = {
-  isFixedHeader: false,
+  isFixedHeaderAndScrollableBody: false,
 };
 
 export default Table;
