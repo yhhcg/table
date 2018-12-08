@@ -48,7 +48,9 @@ Table.propTypes = {
     title: PropTypes.node.isRequired,
     width: PropTypes.string,
   })).isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+  })).isRequired,
   isFixedHeader: PropTypes.bool,
 };
 
