@@ -57,7 +57,7 @@ class Demo extends React.Component {
    */
   render() {
     return (
-      <React.Fragment>
+      <div className={classes.root}>
         <h1>Simple table</h1>
         <Table
           columns={this.columns}
@@ -70,8 +70,28 @@ class Demo extends React.Component {
           data={this.data}
           isFixedHeaderAndScrollableBody={true}
         />
-        <h1></h1>
-      </React.Fragment>
+        <h1>Fixed columns</h1>
+        <Table
+          columns={this.columns.map((column, index, columns) => {
+            if (index === 0) {
+              return {
+                ...column,
+                fixed: 'left',
+              };
+            }
+            if (index === columns.length - 1) {
+              return {
+                ...column,
+                fixed: 'right',
+              };
+            }
+            return column;
+          })}
+          className={classes.table}
+          data={this.data}
+          isFixedHeaderAndScrollableBody={true}
+        />
+      </div>
     );
   }
 }

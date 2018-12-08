@@ -1,3 +1,7 @@
+.root {
+  padding: 10px 20px 40px;
+}
+
 .table {
   height: 200px;
 }
