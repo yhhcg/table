@@ -38,6 +38,26 @@ module.exports = {
         }],
       },
 
+      { // Styling
+        test: /\.css$/,
+        include: path.appSrc,
+        use: [{
+          loader: 'style-loader',
+          options: {
+            sourceMap: true,
+          },
+        }, {
+          loader: 'css-loader',
+          options: {
+            camelCase: true,
+            importLoaders: 2,
+            localIdentName: '[path][name]__[local]--[hash:base64:6]',
+            modules: true,
+            sourceMap: true,
+          },
+        }],
+      },
+
       {
         test: /\.(png|jpg|gif)$/,
         use: [
