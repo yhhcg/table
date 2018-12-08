@@ -36,7 +36,7 @@ class Demo extends React.Component {
 
   data = Array.from({ length: 20 }, (item, index) => {
     return {
-      key: index,
+      key: index.toString(),
       project: 'schedule',
       pages: '10',
       package: 'Ant design',
