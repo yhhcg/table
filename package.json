@@ -11,7 +11,7 @@
     "dev:es": "cross-env NODE_ENV=development BABEL_ENV=es babel ./src/ -d ./demo/node_modules/table/es/ --ignore *.test.js",
     "dev:css": "cross-env NODE_ENV=development lessc ./src/table.less ./demo/node_modules/table/table.css",
     "dev": "yarn dev:es2015 && yarn dev:es2015modules && yarn dev:es && yarn dev:css",
-    "start": "yarn prebuild && yarn dev:copy-files && nodemon --exec yarn dev",
+    "start": "yarn prebuild && yarn dev:copy-files && nodemon -x 'yarn dev' -e js,less",
     "build:copy-files": "cross-env NODE_ENV=production babel-node ./script/copy-files.js",
     "build:es2015": "cross-env NODE_ENV=production babel ./src/ -d ./build/ --ignore *.test.js",
     "build:es2015modules": "cross-env NODE_ENV=production BABEL_ENV=modules babel ./src/index.js -o ./build/index.es.js",
