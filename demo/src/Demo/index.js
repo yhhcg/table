@@ -2,6 +2,7 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import Table from 'table';
 import 'table/table.css';
+import classes from './index.css';
 
 /**
  * Export a form call api with post method
@@ -12,7 +13,6 @@ class Demo extends React.Component {
     {
       title: 'project',
       key: 'project',
-      fixed: 'left',
       width: '80px',
     },
     ...Array.from({ length: 5 }, (item, index) => ({
@@ -27,10 +27,10 @@ class Demo extends React.Component {
     }, {
       title: 'package',
       key: 'package',
-      width: '10%',
     }, {
       title: 'duration',
       key: 'duration',
+      width: '80px',
     },
   ];
 
@@ -57,10 +57,21 @@ class Demo extends React.Component {
    */
   render() {
     return (
-      <Table
-        columns={this.columns}
-        data={this.data}
-      />
+      <React.Fragment>
+        <h1>Simple table</h1>
+        <Table
+          columns={this.columns}
+          data={this.data}
+        />
+        <h1>Fixed header and scrollable body</h1>
+        <Table
+          columns={this.columns}
+          className={classes.table}
+          data={this.data}
+          isFixedHeaderAndScrollableBody={true}
+        />
+        <h1></h1>
+      </React.Fragment>
     );
   }
 }
