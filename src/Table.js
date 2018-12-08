@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TableColgroup from './TableColgroup';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
@@ -14,15 +15,15 @@ class Table extends React.PureComponent {
 
     if (isFixedHeader) {
       return (
-        <div className="table">
+        <div className={classNames('table', 'table-fixed-header')}>
           <div className="table-header">
-            <table className="table-content">
+            <table className="table-header-table">
               <TableColgroup columns={columns} />
               <TableHeader columns={columns} />
             </table>
           </div>
           <div className="table-body">
-            <table className="table-content">
+            <table className="table-body-table">
               <TableColgroup columns={columns} />
               <TableBody columns={columns} data={data} />
             </table>
@@ -32,7 +33,7 @@ class Table extends React.PureComponent {
     }
 
     return (
-      <table>
+      <table className="table">
         <TableColgroup columns={columns} />
         <TableHeader columns={columns} />
         <TableBody columns={columns} data={data} />
