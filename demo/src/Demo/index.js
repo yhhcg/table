@@ -1,6 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import Table from 'table';
+import 'table/table.css';
 
 /**
  * Export a form call api with post method

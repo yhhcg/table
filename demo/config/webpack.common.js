@@ -22,6 +22,22 @@ module.exports = {
         loader: 'babel-loader',
       },
 
+      { // Styling
+        test: /\.css$/,
+        include: path.nodeModulesPath,
+        use: [{
+          loader: 'style-loader',
+          options: {
+            sourceMap: true,
+          },
+        }, {
+          loader: 'css-loader',
+          options: {
+            sourceMap: true,
+          },
+        }],
+      },
+
       {
         test: /\.(png|jpg|gif)$/,
         use: [

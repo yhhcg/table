@@ -11,4 +11,5 @@ module.exports = {
   appPath: resolveApp('.'),
   appDist: resolveApp('dist'),
   appSrc: resolveApp('src'),
+  nodeModulesPath: resolveApp('node_modules'),
 };
