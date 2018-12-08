@@ -8,35 +8,23 @@ class TableHeader extends React.PureComponent {
     } = this.props;
 
     return (
-      <React.Fragment>
-        <colgroup>
+      <thead>
+        <tr>
           {
             columns.map((column) => (
-              <col
-                key={column.key}
-                style={{ width: column.width }}
-              />
+              <th key={column.key}>
+                {column.title}
+              </th>
             ))
           }
-        </colgroup>
-        <thead>
-          <tr>
-            {
-              columns.map((column) => (
-                <th key={column.key}>
-                  {column.title}
-                </th>
-              ))
-            }
-          </tr>
-        </thead>
-      </React.Fragment>
+        </tr>
+      </thead>
     );
   }
 }
 
 TableHeader.propTypes = {
-
+  columns: PropTypes.array.isRequired,
 };
 
 export default TableHeader;
