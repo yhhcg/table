@@ -16,13 +16,13 @@ class Table extends React.PureComponent {
       return (
         <div className="table">
           <div className="table-header">
-            <table className="table-content-table">
+            <table className="table-content">
               <TableColgroup columns={columns} />
               <TableHeader columns={columns} />
             </table>
           </div>
           <div className="table-body">
-            <table className="table-content-table">
+            <table className="table-content">
               <TableColgroup columns={columns} />
               <TableBody columns={columns} data={data} />
             </table>
