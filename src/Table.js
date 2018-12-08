@@ -9,6 +9,7 @@ class Table extends React.PureComponent {
   render() {
     const {
       columns,
+      className: classNamePro,
       data,
       isFixedHeaderAndScrollableBody,
     } = this.props;
@@ -22,7 +23,7 @@ class Table extends React.PureComponent {
     ) {
       const rootClassName = classNames('table', {
         'table-scrollable-body': isFixedHeaderAndScrollableBody,
-      });
+      }, classNamePro);
       const contentClassName = classNames('table-content', {
         'table-scrollable-body': isFixedHeaderAndScrollableBody,
       });
@@ -87,7 +88,7 @@ class Table extends React.PureComponent {
     }
 
     return (
-      <table className="table">
+      <table className={classNames('table', classNamePro)}>
         <TableColgroup columns={columns} />
         <TableHeader columns={columns} />
         <TableBody columns={columns} data={data} />
@@ -97,6 +98,7 @@ class Table extends React.PureComponent {
 }
 
 Table.propTypes = {
+  className: PropTypes.string,
   columns: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
     title: PropTypes.node.isRequired,
