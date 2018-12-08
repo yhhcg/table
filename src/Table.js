@@ -1,70 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TableColgroup from './TableColgroup';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
 
 class Table extends React.PureComponent {
   render() {
     const {
       columns,
       data,
+      isFixedHeader,
     } = this.props;
 
+    if (isFixedHeader) {
+      return (
+        <div className="table">
+          <div className="table-header">
+            <table className="table-content-table">
+              <TableColgroup columns={columns} />
+              <TableHeader columns={columns} />
+            </table>
+          </div>
+          <div className="table-body">
+            <table className="table-content-table">
+              <TableColgroup columns={columns} />
+              <TableBody columns={columns} data={data} />
+            </table>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div className="table">
-        <div className="table-header">
-          <table className="table-content-table">
-            <colgroup>
-              {
-                columns.map((column) => (
-                  <col
-                    key={column.key}
-                    style={{ width: column.width }}
-                  />
-                ))
-              }
-            </colgroup>
-            <thead>
-              <tr>
-                {
-                  columns.map((column) => (
-                    <th key={column.key}>
-                      {column.title}
-                    </th>
-                  ))
-                }
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div className="table-body">
-          <table className="table-content-table">
-            <colgroup>
-              {
-                columns.map((column) => (
-                  <col
-                    key={column.key}
-                    style={{ width: column.width }}
-                  />
-                ))
-              }
-            </colgroup>
-            <tbody>
-              {
-                data.map((row) => (
-                  <tr key={row.key}>
-                    {
-                      columns.map((column) => (
-                        <td key={`${row.key}-${column.key}`}>
-                          {row[column.key]}
-                        </td>
-                      ))
-                    }
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <table>
+        <TableColgroup columns={columns} />
+        <TableHeader columns={columns} />
+        <TableBody columns={columns} data={data} />
+      </table>
     );
   }
 }
@@ -72,6 +44,11 @@ class Table extends React.PureComponent {
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  isFixedHeader: PropTypes.bool,
+};
+
+Table.defaultProps = {
+  isFixedHeader: false,
 };
 
 export default Table;
