@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Table extends React.Component {
+class Table extends React.PureComponent {
   render() {
     const {
       columns,
