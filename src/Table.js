@@ -43,7 +43,11 @@ class Table extends React.PureComponent {
 }
 
 Table.propTypes = {
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    title: PropTypes.node.isRequired,
+    width: PropTypes.string,
+  })).isRequired,
   data: PropTypes.array.isRequired,
   isFixedHeader: PropTypes.bool,
 };
