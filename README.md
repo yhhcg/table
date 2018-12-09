@@ -48,7 +48,7 @@ Dom looks like this:
   ```
 
 The columns are not aligned. The following can solve this:  
-  1. Table with table-layout: fixed;  
+  1. Table with table-layout: fixed.  
   2. Set column width using ``` <col> ```.
 
 ### Fixed columns and horizontally scrolling table
@@ -62,3 +62,6 @@ The columns are not aligned. The following can solve this:
     </div>
   </div>
 ```
+TODO:  
+  1. Scrolling performance boost.  
+  2. Row not align.
