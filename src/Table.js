@@ -27,6 +27,9 @@ class Table extends React.PureComponent {
       const contentClassName = classNames('table-content', {
         'table-scrollable-body': isFixedHeaderAndScrollableBody,
       });
+      const scrollClassName = classNames('table-scroll', {
+        'table-scrollable-body': isFixedHeaderAndScrollableBody,
+      });
       const fixedLeftClassName = classNames('table-fixed-left', {
         'table-scrollable-body': isFixedHeaderAndScrollableBody,
       });
@@ -42,46 +45,56 @@ class Table extends React.PureComponent {
       return (
         <div className={rootClassName}>
           <div className={contentClassName}>
-            <div className={headerClassName}>
-              <table className="table-header-table">
-                <TableColgroup columns={columns} />
-                <TableHeader columns={columns} />
-              </table>
+            <div className={scrollClassName}>
+              <div className={headerClassName}>
+                <table className="table-header-table">
+                  <TableColgroup columns={columns} />
+                  <TableHeader columns={columns} />
+                </table>
+              </div>
+              <div className={bodyClassName}>
+                <table className="table-body-table">
+                  <TableColgroup columns={columns} />
+                  <TableBody columns={columns} data={data} />
+                </table>
+              </div>
             </div>
-            <div className={bodyClassName}>
-              <table className="table-body-table">
-                <TableColgroup columns={columns} />
-                <TableBody columns={columns} data={data} />
-              </table>
-            </div>
-          </div>
-          <div className={fixedLeftClassName}>
-            <div className={headerClassName}>
-              <table>
-                <TableColgroup columns={fixedLeftColumns} />
-                <TableHeader columns={fixedLeftColumns} />
-              </table>
-            </div>
-            <div className={bodyClassName}>
-              <table>
-                <TableColgroup columns={fixedLeftColumns} />
-                <TableBody columns={fixedLeftColumns} data={data} />
-              </table>
-            </div>
-          </div>
-          <div className={fixedRightClassName}>
-            <div className={headerClassName}>
-              <table>
-                <TableColgroup columns={fixedRightColumns} />
-                <TableHeader columns={fixedRightColumns} />
-              </table>
-            </div>
-            <div className={bodyClassName}>
-              <table>
-                <TableColgroup columns={fixedRightColumns} />
-                <TableBody columns={fixedRightColumns} data={data} />
-              </table>
-            </div>
+            {
+              fixedLeftColumns.length !== 0 && (
+                <div className={fixedLeftClassName}>
+                  <div className={headerClassName}>
+                    <table>
+                      <TableColgroup columns={fixedLeftColumns} />
+                      <TableHeader columns={fixedLeftColumns} />
+                    </table>
+                  </div>
+                  <div className={bodyClassName}>
+                    <table>
+                      <TableColgroup columns={fixedLeftColumns} />
+                      <TableBody columns={fixedLeftColumns} data={data} />
+                    </table>
+                  </div>
+                </div>
+              )
+            }
+            {
+              fixedRightColumns.length !== 0 && (
+                <div className={fixedRightClassName}>
+                  <div className={headerClassName}>
+                    <table>
+                      <TableColgroup columns={fixedRightColumns} />
+                      <TableHeader columns={fixedRightColumns} />
+                    </table>
+                  </div>
+                  <div className={bodyClassName}>
+                    <table>
+                      <TableColgroup columns={fixedRightColumns} />
+                      <TableBody columns={fixedRightColumns} data={data} />
+                    </table>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       );
