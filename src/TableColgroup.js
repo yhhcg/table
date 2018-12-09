@@ -13,7 +13,11 @@ class TableColgroup extends React.PureComponent {
           columns.map((column) => (
             <col
               key={column.key}
-              style={{ width: column.width }}
+              style={{
+                width: column.width,
+                maxWidth: column.width,
+                minWidth: column.width,
+              }}
             />
           ))
         }
