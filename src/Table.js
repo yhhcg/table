@@ -6,6 +6,31 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 
 class Table extends React.PureComponent {
+  getFixedLeftColumns() {
+    const { columns } = this.props;
+    return columns.filter((column) => column.fixed === 'left');
+  }
+
+  getFixedRightColumns() {
+    const { columns } = this.props;
+    return columns.filter((column) => column.fixed === 'right');
+  }
+
+  /**
+   * Listen for scroll event in the middle table body, scrolling the
+   * body of the left and right tables at the same time.
+   */
+  handleScroll = (event) => {
+    const fixedLeftColumns = this.getFixedLeftColumns();
+    const fixedRightColumns = this.getFixedRightColumns();
+    if (fixedLeftColumns.length !== 0) {
+      this.fixedLeftBody.scrollTop = event.target.scrollTop;
+    }
+    if (fixedRightColumns.length !== 0) {
+      this.fixedRightBody.scrollTop = event.target.scrollTop;
+    }
+  }
+
   render() {
     const {
       classes,
@@ -15,8 +40,8 @@ class Table extends React.PureComponent {
       isFixedHeaderAndScrollableBody,
     } = this.props;
 
-    const fixedLeftColumns = columns.filter((column) => column.fixed === 'left');
-    const fixedRightColumns = columns.filter((column) => column.fixed === 'right');
+    const fixedLeftColumns = this.getFixedLeftColumns();
+    const fixedRightColumns = this.getFixedRightColumns();
 
     if (isFixedHeaderAndScrollableBody
       || fixedLeftColumns.length !== 0
@@ -66,7 +91,11 @@ class Table extends React.PureComponent {
                   <TableHeader columns={columns} />
                 </table>
               </div>
-              <div className={bodyClassName}>
+              <div
+                className={bodyClassName}
+                onScroll={this.handleScroll}
+                ref={c => { this.scrollBody = c; }}
+              >
                 <table className="table-body-table">
                   <TableColgroup columns={columns} />
                   <TableBody columns={columns} data={data} />
@@ -82,7 +111,7 @@ class Table extends React.PureComponent {
                       <TableHeader columns={fixedLeftColumns} />
                     </table>
                   </div>
-                  <div className={bodyClassName}>
+                  <div className={bodyClassName} ref={c => { this.fixedLeftBody = c; }}>
                     <table>
                       <TableColgroup columns={fixedLeftColumns} />
                       <TableBody columns={fixedLeftColumns} data={data} />
@@ -100,7 +129,7 @@ class Table extends React.PureComponent {
                       <TableHeader columns={fixedRightColumns} />
                     </table>
                   </div>
-                  <div className={bodyClassName}>
+                  <div className={bodyClassName} ref={c => { this.fixedRightBody = c; }}>
                     <table>
                       <TableColgroup columns={fixedRightColumns} />
                       <TableBody columns={fixedRightColumns} data={data} />
