@@ -2,6 +2,10 @@
   padding: 10px 20px 40px;
 }
 
+td, th {
+  border: 1px solid #91d5ff;
+}
+
 .table {
   height: 200px;
 }
