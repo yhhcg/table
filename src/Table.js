@@ -8,6 +8,7 @@ import TableBody from './TableBody';
 class Table extends React.PureComponent {
   render() {
     const {
+      classes,
       columns,
       className: classNamePro,
       data,
@@ -21,27 +22,40 @@ class Table extends React.PureComponent {
       || fixedLeftColumns.length !== 0
       || fixedRightColumns.length !== 0
     ) {
-      const rootClassName = classNames('table', {
-        'table-scrollable-body': isFixedHeaderAndScrollableBody,
-      }, classNamePro);
-      const contentClassName = classNames('table-content', {
-        'table-scrollable-body': isFixedHeaderAndScrollableBody,
-      });
-      const scrollClassName = classNames('table-scroll', {
-        'table-scrollable-body': isFixedHeaderAndScrollableBody,
-      });
-      const fixedLeftClassName = classNames('table-fixed-left', {
-        'table-scrollable-body': isFixedHeaderAndScrollableBody,
-      });
-      const fixedRightClassName = classNames('table-fixed-right', {
-        'table-scrollable-body': isFixedHeaderAndScrollableBody,
-      });
-      const headerClassName = classNames({
-        'table-header': isFixedHeaderAndScrollableBody,
-      });
-      const bodyClassName = classNames({
-        'table-body': isFixedHeaderAndScrollableBody,
-      });
+      const rootClassName = classNames(
+        'table',
+        { 'table-scrollable': isFixedHeaderAndScrollableBody },
+        classNamePro,
+        classes.table,
+      );
+      const contentClassName = classNames(
+        'table-content',
+        { 'table-scrollable': isFixedHeaderAndScrollableBody },
+        classes.tableContent,
+      );
+      const scrollClassName = classNames(
+        'table-scroll',
+        { 'table-scrollable': isFixedHeaderAndScrollableBody },
+        classes.tableScroll,
+      );
+      const fixedLeftClassName = classNames(
+        'table-fixed-left',
+        { 'table-scrollable': isFixedHeaderAndScrollableBody },
+        classes.tableFixedLeft,
+      );
+      const fixedRightClassName = classNames(
+        'table-fixed-right',
+        { 'table-scrollable': isFixedHeaderAndScrollableBody },
+        classes.tableFixedRight,
+      );
+      const headerClassName = classNames(
+        'table-header',
+        { 'table-scrollable-header': isFixedHeaderAndScrollableBody },
+      );
+      const bodyClassName = classNames(
+        'table-body',
+        { 'table-scrollable-body': isFixedHeaderAndScrollableBody },
+      );
       return (
         <div className={rootClassName}>
           <div className={contentClassName}>
@@ -111,6 +125,7 @@ class Table extends React.PureComponent {
 }
 
 Table.propTypes = {
+  classes: PropTypes.object,
   className: PropTypes.string,
   columns: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
@@ -124,6 +139,7 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
+  classes: {},
   isFixedHeaderAndScrollableBody: false,
 };
 

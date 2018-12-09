@@ -6,8 +6,13 @@
     box-sizing: border-box;
   }
 
+  &-scrollable {
+    height: 100%;
+  }
+
   &-content {
     width: 100%;
+    overflow-y: hidden;
     overflow-x: auto;
   }
 
@@ -34,17 +39,19 @@
     flex-direction: column;
   }
 
-  &-scrollable-body {
-    height: 100%;
-  }
-
   &-header {
     width: 100%;
+  }
+
+  &-scrollable-header {
     flex: 0 0 auto;
   }
 
   &-body {
     width: 100%;
+  }
+
+  &-scrollable-body {
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
