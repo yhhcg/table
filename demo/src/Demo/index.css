@@ -5,3 +5,7 @@
 .table {
   height: 200px;
 }
+
+.tableScroll {
+  min-width: 1000px;
+}

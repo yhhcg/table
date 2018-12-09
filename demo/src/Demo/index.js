@@ -13,24 +13,20 @@ class Demo extends React.Component {
     {
       title: 'project',
       key: 'project',
-      width: '80px',
     },
     ...Array.from({ length: 5 }, (item, index) => ({
       title: `column${index}`,
       key: `column${index}`,
-      width: '10%',
     })),
     {
       title: 'pages',
       key: 'pages',
-      width: '10%',
     }, {
       title: 'package',
       key: 'package',
     }, {
       title: 'duration',
       key: 'duration',
-      width: '80px',
     },
   ];
 
@@ -72,21 +68,35 @@ class Demo extends React.Component {
         />
         <h1>Fixed columns</h1>
         <Table
-          columns={this.columns.map((column, index, columns) => {
-            if (index === 0) {
-              return {
-                ...column,
-                fixed: 'left',
-              };
-            }
-            if (index === columns.length - 1) {
-              return {
-                ...column,
-                fixed: 'right',
-              };
-            }
-            return column;
-          })}
+          classes={{
+            tableScroll: classes.tableScroll,
+          }}
+          columns={[
+            {
+              title: 'project',
+              key: 'project',
+              width: '80px',
+              fixed: 'left',
+            },
+            ...Array.from({ length: 5 }, (item, index) => ({
+              title: `column${index}`,
+              key: `column${index}`,
+              width: '100px',
+            })),
+            {
+              title: 'pages',
+              key: 'pages',
+              width: '80px',
+            }, {
+              title: 'package',
+              key: 'package',
+            }, {
+              title: 'duration',
+              key: 'duration',
+              width: '80px',
+              fixed: 'right',
+            },
+          ]}
           className={classes.table}
           data={this.data}
           isFixedHeaderAndScrollableBody={true}
