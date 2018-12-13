@@ -50,8 +50,8 @@ class Table extends React.PureComponent {
       const rootClassName = classNames(
         'table',
         { 'table-scrollable': isFixedHeaderAndScrollableBody },
-        classNamePro,
         classes.table,
+        classNamePro,
       );
       const contentClassName = classNames(
         'table-content',
