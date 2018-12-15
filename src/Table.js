@@ -144,11 +144,13 @@ class Table extends React.PureComponent {
     }
 
     return (
-      <table className={classNames('table', classNamePro)}>
-        <TableColgroup columns={columns} />
-        <TableHeader columns={columns} />
-        <TableBody columns={columns} data={data} />
-      </table>
+      <div className={classNames('table', classNamePro)}>
+        <table className="simple-table">
+          <TableColgroup columns={columns} />
+          <TableHeader columns={columns} />
+          <TableBody columns={columns} data={data} />
+        </table>
+      </div>
     );
   }
 }
