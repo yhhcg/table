@@ -1,11 +1,79 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import ResizeSensor from 'css-element-queries/src/ResizeSensor';
 import TableColgroup from './TableColgroup';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 
 class Table extends React.PureComponent {
+  /**
+   * Reset row height after resizing table.
+   */
+  componentDidMount() {
+    if (this.getFixedLeftColumns().length === 0 && this.getFixedRightColumns().length === 0) {
+      return;
+    }
+    this.resizeSensor = new ResizeSensor(this.table, () => {
+      this.setHeaderRowHeight();
+      this.setBodyRowHeight();
+    });
+  }
+
+  /**
+   * Destroy resizeSensor instance.
+   */
+  componentWillUnmount() {
+    this.resizeSensor = null;
+  }
+
+  /**
+   * Set the header row height of the fixed table according to
+   * the header row height of the table content.
+   */
+  setHeaderRowHeight() {
+    const tableHeadRowHeight = this.table
+      .getElementsByClassName('table-header')[0]
+      .getElementsByTagName('tr')[0]
+      .clientHeight;
+    if (this.getFixedLeftColumns().length !== 0) {
+      this.fixedLeftTable.getElementsByClassName('table-header')[0]
+        .getElementsByTagName('tr')[0]
+        .style
+        .height = `${tableHeadRowHeight}px`;
+    }
+    if (this.getFixedRightColumns().length !== 0) {
+      this.fixedRightTable.getElementsByClassName('table-header')[0]
+        .getElementsByTagName('tr')[0]
+        .style
+        .height = `${tableHeadRowHeight}px`;
+    }
+  }
+
+  /**
+   * Set the body row height of the fixed table according to
+   * the height of each body row of the table content.
+   */
+  setBodyRowHeight() {
+    Array.from(this.table.getElementsByClassName('table-body')[0].getElementsByTagName('tr'))
+      .forEach((eachRowElement, index) => {
+        const tableBodyRowHeight = eachRowElement.clientHeight;
+
+        if (this.getFixedLeftColumns().length !== 0) {
+          this.fixedLeftTable.getElementsByClassName('table-body')[0]
+            .getElementsByTagName('tr')[index]
+            .style
+            .height = `${tableBodyRowHeight}px`;
+        }
+        if (this.getFixedRightColumns().length !== 0) {
+          this.fixedRightTable.getElementsByClassName('table-body')[0]
+            .getElementsByTagName('tr')[index]
+            .style
+            .height = `${tableBodyRowHeight}px`;
+        }
+      });
+  }
+
   getFixedLeftColumns() {
     const { columns } = this.props;
     return columns.filter((column) => column.fixed === 'left');
@@ -82,7 +150,7 @@ class Table extends React.PureComponent {
         { 'table-scrollable-body': isFixedHeaderAndScrollableBody },
       );
       return (
-        <div className={rootClassName}>
+        <div className={rootClassName} ref={e => { this.table = e; }}>
           <div className={contentClassName}>
             <div className={scrollClassName}>
               <div className={headerClassName}>
@@ -104,7 +172,7 @@ class Table extends React.PureComponent {
             </div>
             {
               fixedLeftColumns.length !== 0 && (
-                <div className={fixedLeftClassName}>
+                <div className={fixedLeftClassName} ref={e => { this.fixedLeftTable = e; }}>
                   <div className={headerClassName}>
                     <table>
                       <TableColgroup columns={fixedLeftColumns} />
@@ -122,7 +190,7 @@ class Table extends React.PureComponent {
             }
             {
               fixedRightColumns.length !== 0 && (
-                <div className={fixedRightClassName}>
+                <div className={fixedRightClassName} ref={e => { this.fixedRightTable = e; }}>
                   <div className={headerClassName}>
                     <table>
                       <TableColgroup columns={fixedRightColumns} />
